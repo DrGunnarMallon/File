@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 94f324ee94e149145b5a1393c29bb07c
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - tooltipPrefab: {fileID: 5951723385733376696, guid: bc286e3d85565ea48871d4d109c8bc9a, type: 3}
+  - canvas: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
