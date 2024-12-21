@@ -8,6 +8,7 @@ TagManager:
   - NPC
   - Platform
   - Background
+  - Hazard
   layers:
   - Default
   - TransparentFX
@@ -17,10 +18,10 @@ TagManager:
   - UI
   - Player
   - Background
-  - NPC
-  - Ground
-  - Item
-  - 
+  - Items
+  - Platform
+  - Enemy
+  - Hazard
   - 
   - 
   - 
@@ -48,13 +49,13 @@ TagManager:
   - name: Background
     uniqueID: 44204937
     locked: 0
-  - name: Platforms
+  - name: Platform
     uniqueID: 426271449
     locked: 0
   - name: Items
     uniqueID: 352348347
     locked: 0
-  - name: NPC
+  - name: Enemy
     uniqueID: 3200486121
     locked: 0
   - name: Player

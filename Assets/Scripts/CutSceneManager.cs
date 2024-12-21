@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro; // If using TextMeshPro
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class IntroManager : MonoBehaviour
 {
@@ -23,6 +24,9 @@ public class IntroManager : MonoBehaviour
     public float initialDelay = 1.0f;
     public float finalDelay = 0.7f;
 
+    private PlayerInput playerInput;
+
+    private bool nextScene = false;
 
     private void Start()
     {
@@ -43,18 +47,28 @@ public class IntroManager : MonoBehaviour
 
             yield return StartCoroutine(ShowTextLetterByLetter(slide.text));
 
-            yield return new WaitForSeconds(holdDuration);
+            while (!nextScene)
+            {
+                yield return null;
+            }
 
             yield return StartCoroutine(FadeOut(slide.backgroundImage, slide.text));
 
             yield return new WaitForSeconds(transitionTime);
 
             slide.slideObject.SetActive(false);
+
+            nextScene = false;
         }
 
         yield return new WaitForSeconds(finalDelay);
 
         SkipIntro();
+    }
+
+    private void OnJump(InputValue value)
+    {
+        nextScene = true;
     }
 
     private IEnumerator FadeIn(Image image, TextMeshProUGUI text)
@@ -98,6 +112,10 @@ public class IntroManager : MonoBehaviour
         {
             textComponent.text += letter;
             yield return new WaitForSeconds(letterDelay);
+            if (nextScene)
+            {
+                break;
+            }
         }
     }
 

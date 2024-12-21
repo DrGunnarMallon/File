@@ -1,7 +1,9 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
+
     private bool canFlipGravity = true;
 
     public bool CanFlipGravity()
@@ -13,4 +15,5 @@ public class Player : MonoBehaviour
     {
         canFlipGravity = true;
     }
+
 }

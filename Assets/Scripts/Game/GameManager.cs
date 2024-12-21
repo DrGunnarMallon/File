@@ -2,15 +2,23 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    public static GameManager Instance;
 
-    // Update is called once per frame
-    void Update()
+    [Header("Game Settings")]
+    [SerializeField] private int maxHearts = 4;
+    [SerializeField] public int currentHearts = 4;
+
+    private void Awake()
     {
-        
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+            currentHearts = maxHearts;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 }
