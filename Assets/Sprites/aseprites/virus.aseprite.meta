@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9336385e859e0184ba8fdeb1818787e8
+guid: 9edfa92030c8e014eb45183521a193f1
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -122,9 +122,9 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: items
+  - name: virus
     originalName: 
-    pivot: {x: 0.5, y: -0.34736845}
+    pivot: {x: 0.5, y: -0.4}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -132,9 +132,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 128
-      height: 95
-    spriteID: 8bf79cf2339304f4b86bca3a4146b791
+      width: 124
+      height: 90
+    spriteID: 31712278421bac34d885da58643111aa
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -146,21 +146,21 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: 932971278
-    name: items
+    guid: 315800003
+    name: virus
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: items
+    - name: virus
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: 0
-        y: 33
-        width: 128
-        height: 95
-      spriteId: 8bf79cf2339304f4b86bca3a4146b791
+        x: 2
+        y: 36
+        width: 124
+        height: 90
+      spriteId: 31712278421bac34d885da58643111aa
     linkedCells: []
     parentIndex: -1
   platformSettings:

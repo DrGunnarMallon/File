@@ -10,6 +10,15 @@ public class AudioManager : MonoBehaviour
     [SerializeField] public AudioClip gameMusic;
     [SerializeField] private float fadeDuration = 1f;
 
+    [SerializeField] private AudioClip jumpSound;
+    [SerializeField] private float jumpSoundVolume = 0.5f;
+
+    [SerializeField] private AudioClip damageSound;
+    [SerializeField] private float damageSoundVolume = 0.5f;
+
+    [SerializeField] private AudioClip deathSound;
+    [SerializeField] private float deathSoundVolume = 0.5f;
+
     private void Awake()
     {
         if (Instance == null)
@@ -70,5 +79,25 @@ public class AudioManager : MonoBehaviour
     public bool IsMenuMusicPlaying()
     {
         return bgmSource.clip == menuMusic && bgmSource.isPlaying;
+    }
+
+    public void PlayJumpSound()
+    {
+        PlayClip(jumpSound, jumpSoundVolume);
+    }
+
+    public void PlayDamageSound()
+    {
+        PlayClip(damageSound, damageSoundVolume);
+    }
+
+    public void PlayDeathSound()
+    {
+        PlayClip(deathSound, deathSoundVolume);
+    }
+
+    private void PlayClip(AudioClip clip, float volume)
+    {
+        bgmSource.PlayOneShot(clip, volume);
     }
 }

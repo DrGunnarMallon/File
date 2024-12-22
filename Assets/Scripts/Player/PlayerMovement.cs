@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public enum PlayerState
 {
@@ -18,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpSpeed = 5f;
     [SerializeField] private float runSpeed = 5f;
     [SerializeField] private GameObject deathParticleSystem;
+    [SerializeField] private TextMeshProUGUI gameOverText;
 
     private Rigidbody2D rb;
     private Vector2 moveInput;
@@ -28,7 +30,6 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 startingScale;
     private bool isAlive = true;
     private bool hasDied = false;
-
 
     private void Awake()
     {
@@ -83,6 +84,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (value.isPressed && IsGrounded())
         {
+            AudioManager.Instance.PlayJumpSound();
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpSpeed);
         }
     }
@@ -103,7 +105,6 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-
     private bool PlayerHasHorizontalSpeed()
     {
         return Mathf.Abs(rb.linearVelocity.x) > 0.01f;
@@ -113,8 +114,6 @@ public class PlayerMovement : MonoBehaviour
     {
         return playerCollider.IsTouchingLayers(LayerMask.GetMask("Platform", "Item"));
     }
-
-
 
 
     private void UpdateAnimationStates()
@@ -149,19 +148,34 @@ public class PlayerMovement : MonoBehaviour
         {
             isAlive = false;
 
-            GameManager.Instance.currentHearts--;
+            GameManager.Instance.ReduceHearts();
+            FindFirstObjectByType<HeartUI>()?.UpdateHearts();
 
-            if (GameManager.Instance.currentHearts > 0)
+            AudioManager.Instance.PlayDeathSound();
+
+            if (GameManager.Instance.GetCurrentHearts() > 0)
             {
-                Debug.Log($"Player has {GameManager.Instance.currentHearts} hearts left");
                 animator.SetInteger("state", (int)PlayerState.Dying);
                 StartCoroutine(RestartLevelAfterDelay(1f));
             }
             else
             {
-                Debug.Log("Game Over");
+                StartCoroutine(GameOver());
             }
         }
+    }
+
+    private IEnumerator GameOver()
+    {
+        yield return new WaitForSeconds(1f);
+
+        gameOverText.gameObject.SetActive(true);
+
+        yield return new WaitForSeconds(2f);
+
+        gameOverText.gameObject.SetActive(false);
+
+        SceneManager.LoadScene("GameOver");
     }
 
     private IEnumerator RestartLevelAfterDelay(float delay)

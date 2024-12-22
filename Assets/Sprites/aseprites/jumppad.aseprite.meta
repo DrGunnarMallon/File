@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 761ef4a2c08ca2f41831d602adccf063
+guid: 51920ef995ded634ebdb728f11bd42e3
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -122,9 +122,9 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: Sprite-0003
+  - name: jumppad
     originalName: 
-    pivot: {x: 0.5, y: 0}
+    pivot: {x: 0.5046729, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -132,9 +132,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 32
-      height: 32
-    spriteID: f098a93b8d3d31c458817b7c6f378e27
+      width: 107
+      height: 15
+    spriteID: 9006807368c8c7a4b921b2459624ad2d
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -146,21 +146,21 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: -572920417
-    name: Sprite-0003
+    guid: 1825796415
+    name: jumppad
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: Sprite-0003
+    - name: jumppad
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: 0
+        x: 2
         y: 0
-        width: 32
-        height: 32
-      spriteId: f098a93b8d3d31c458817b7c6f378e27
+        width: 107
+        height: 15
+      spriteId: 9006807368c8c7a4b921b2459624ad2d
     linkedCells: []
     parentIndex: -1
   platformSettings:
@@ -179,4 +179,4 @@ ScriptedImporter:
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 32, y: 32}
+  canvasSize: {x: 112, y: 16}

@@ -9,6 +9,7 @@ TagManager:
   - Platform
   - Background
   - Hazard
+  - Door
   layers:
   - Default
   - TransparentFX
