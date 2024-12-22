@@ -313,12 +313,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8300000, guid: 5c1ff3c5bf68d1a40b8acecaba9d83d3, type: 3}
     - target: {fileID: 2888763636105749488, guid: b6e62fe221c606e4f9c8129768c69c98, type: 3}
+      propertyPath: jumpSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 42a5ee42a2f076a44941705b050c71a1, type: 3}
+    - target: {fileID: 2888763636105749488, guid: b6e62fe221c606e4f9c8129768c69c98, type: 3}
       propertyPath: menuMusic
       value: 
       objectReference: {fileID: 8300000, guid: f97683279e8714f4186a9ecf5de0aa48, type: 3}
     - target: {fileID: 2888763636105749488, guid: b6e62fe221c606e4f9c8129768c69c98, type: 3}
       propertyPath: jumpSoundVolume
-      value: 2.5
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 2888763636105749488, guid: b6e62fe221c606e4f9c8129768c69c98, type: 3}
       propertyPath: landSoundVolume
@@ -326,7 +330,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2888763636105749488, guid: b6e62fe221c606e4f9c8129768c69c98, type: 3}
       propertyPath: deathSoundVolume
-      value: 1.2
+      value: 1.3
       objectReference: {fileID: 0}
     - target: {fileID: 3371804315787052959, guid: b6e62fe221c606e4f9c8129768c69c98, type: 3}
       propertyPath: m_LocalPosition.x

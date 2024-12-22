@@ -24,9 +24,5 @@ public class LightFlicker : MonoBehaviour
             timer += Time.deltaTime * flickerSpeed;
             lightSource.intensity = Mathf.Lerp(minIntensity, maxIntensity, Mathf.PerlinNoise(timer, 0f));
         }
-        else
-        {
-            Debug.LogWarning("No Light2D component found on GameObject: " + gameObject.name);
-        }
     }
 }

@@ -145,10 +145,8 @@ MonoBehaviour:
   menuMusic: {fileID: 8300000, guid: f97683279e8714f4186a9ecf5de0aa48, type: 3}
   gameMusic: {fileID: 8300000, guid: 5c1ff3c5bf68d1a40b8acecaba9d83d3, type: 3}
   fadeDuration: 1
-  jumpSound: {fileID: 8300000, guid: e9c60139ea1b50a4493e2ab86b11f2a3, type: 3}
-  jumpSoundVolume: 3
-  landSound: {fileID: 8300000, guid: c92331ad940122f4882e60b215112e16, type: 3}
-  landSoundVolume: 3
+  jumpSound: {fileID: 8300000, guid: 42a5ee42a2f076a44941705b050c71a1, type: 3}
+  jumpSoundVolume: 2
   damageSound: {fileID: 0}
   damageSoundVolume: 1
   deathSound: {fileID: 8300000, guid: 04af1854e67ded54eb2b0fee924113c6, type: 3}

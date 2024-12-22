@@ -20,6 +20,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float runSpeed = 5f;
     [SerializeField] private GameObject deathParticleSystem;
     [SerializeField] private TextMeshProUGUI gameOverText;
+    [SerializeField] private GameObject laser;
+    [SerializeField] private Transform laserSpawnPoint;
 
     private Rigidbody2D rb;
     private Vector2 moveInput;
@@ -70,14 +72,6 @@ public class PlayerMovement : MonoBehaviour
         moveInput = value.Get<Vector2>();
     }
 
-    // private void OnAttack(InputValue value)
-    // {
-    //     if (!value.isPressed) return;
-
-    //     gravityControl.reversePolarity();
-    // }
-
-
     void OnJump(InputValue value)
     {
         if (!isAlive) return;
@@ -88,7 +82,6 @@ public class PlayerMovement : MonoBehaviour
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpSpeed);
         }
     }
-
 
     void Run()
     {
@@ -104,7 +97,6 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-
     private bool PlayerHasHorizontalSpeed()
     {
         return Mathf.Abs(rb.linearVelocity.x) > 0.01f;
@@ -116,21 +108,19 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
+
+
     private void UpdateAnimationStates()
     {
-        if (hasDied)
+        if (!isAlive)
         {
+            animator.SetInteger("state", (int)PlayerState.Dying);
             return;
         }
 
-        PlayerState state = 0;
+        PlayerState state = PlayerState.Idle;
 
-        if (!isAlive)
-        {
-            hasDied = true;
-            state = PlayerState.Dying;
-        }
-        else if (IsGrounded())
+        if (IsGrounded())
         {
             state = PlayerHasHorizontalSpeed() ? PlayerState.Running : PlayerState.Idle;
         }
@@ -141,6 +131,7 @@ public class PlayerMovement : MonoBehaviour
 
         animator.SetInteger("state", (int)state);
     }
+
 
     private void Die()
     {
@@ -156,7 +147,7 @@ public class PlayerMovement : MonoBehaviour
             if (GameManager.Instance.GetCurrentHearts() > 0)
             {
                 animator.SetInteger("state", (int)PlayerState.Dying);
-                StartCoroutine(RestartLevelAfterDelay(1f));
+                StartCoroutine(RestartLevelAfterDelay(2f));
             }
             else
             {
@@ -164,6 +155,35 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
+
+    private IEnumerator RestartLevelAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        // playerCollider.enabled = false;
+
+        // rb.linearVelocity = Vector2.zero;
+        // rb.angularVelocity = 0;
+
+        // rb.bodyType = RigidbodyType2D.Kinematic;
+
+        // isAlive = true;
+        // hasDied = false;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+        // animator.SetInteger("state", (int)PlayerState.Idle);
+        // animator.Play("Player_Idle");
+
+        // Transform lastCheckpoint = GameManager.Instance.GetCheckpoint();
+        // transform.position = lastCheckpoint.position;
+
+        // yield return new WaitForSeconds(0.1f);
+
+        // rb.bodyType = RigidbodyType2D.Dynamic;
+        // playerCollider.enabled = true;
+    }
+
+
 
     private IEnumerator GameOver()
     {
@@ -175,15 +195,12 @@ public class PlayerMovement : MonoBehaviour
 
         gameOverText.gameObject.SetActive(false);
 
+        GameManager.Instance.ResetHearts();
+        GameManager.Instance.ResetLastCheckpoint();
+
         SceneManager.LoadScene("GameOver");
     }
 
-    private IEnumerator RestartLevelAfterDelay(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
 
     public void SpawnDeathParticles()
     {

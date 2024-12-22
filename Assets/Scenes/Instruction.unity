@@ -362,9 +362,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Keys:\n\n   MOVE:       W-A-S-D (or arrows keys)  \n   JUMP:       Space
-    \n   INTERACT:   Left-click (OR ENTER)\n   SHOOT       E \n   Main Menu:  ESC\n\n\nFind
-    the clues and have fun *<:-)"
+  m_text: "  Keys:\n\n  MOVE:       W-A-S-D (or arrows keys)  \n  JUMP:       Space
+    \n   \n  USE THE WALLS TO JUMP HIGHER\n\n\n  Find the clues and have fun *<:-)"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
   m_sharedMaterial: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}

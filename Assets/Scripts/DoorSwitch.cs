@@ -1,14 +1,17 @@
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
-using UnityEngine.Tilemaps;
 
 public class DoorSwitch : MonoBehaviour
 {
     [SerializeField] private Light2D switchLight;
     [SerializeField] private GameObject doorObject;
+    [SerializeField] private bool switchOn = true;
+    [SerializeField] private bool isDoorEnabled = true;
+    [SerializeField] private string openMessage;
+    [SerializeField] private string closeMessage;
 
-    private bool switchOn = true;
-    private bool isDoorEnabled = true;
+    [SerializeField] private GameObject[] toActivate;
+    [SerializeField] private bool switchOff = false;
 
     private void Awake()
     {
@@ -18,26 +21,52 @@ public class DoorSwitch : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        if (switchOff) return;
+
+        foreach (GameObject obj in toActivate)
+        {
+            obj.SetActive(false);
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
             if (switchOn)
             {
-                Debug.Log("Switch light off");
                 ToggleDoor();
                 switchOn = false;
+                if (switchOff) { disableToActivate(); } else { enableToActivate(); }
                 switchLight.enabled = false;
-                FindFirstObjectByType<MessageUI>().DisplayMessage("You hear a door rumble in the distance.");
+                FindFirstObjectByType<MessageUI>().DisplayMessage(openMessage);
             }
             else
             {
-                Debug.Log("Switch light on");
                 ToggleDoor();
+                if (switchOff) { enableToActivate(); } else { disableToActivate(); }
                 switchLight.enabled = true;
                 switchOn = true;
-                FindFirstObjectByType<MessageUI>().DisplayMessage("A door shuts closed *bang*");
+                FindFirstObjectByType<MessageUI>().DisplayMessage(closeMessage);
             }
+        }
+    }
+
+    private void enableToActivate()
+    {
+        foreach (GameObject obj in toActivate)
+        {
+            obj.SetActive(true);
+        }
+    }
+
+    private void disableToActivate()
+    {
+        foreach (GameObject obj in toActivate)
+        {
+            obj.SetActive(false);
         }
     }
 

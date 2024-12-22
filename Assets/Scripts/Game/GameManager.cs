@@ -8,9 +8,12 @@ public class GameManager : MonoBehaviour
     [Header("Game Settings")]
     [SerializeField] private int maxHearts = 5;
     [SerializeField] private int startingHearts = 4;
-    private int currentHearts;
+    [SerializeField] private Transform[] checkpoints;
 
+    private int currentHearts;
     private bool hasCollectedLife = false;
+    private bool canShoot = false;
+    private int lastCheckPoint = 0;
 
     private void Awake()
     {
@@ -19,6 +22,8 @@ public class GameManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
             currentHearts = startingHearts;
+
+            Debug.Log($"Checkpoints loaded: {checkpoints.Length}");
         }
         else
         {
@@ -52,12 +57,14 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         currentHearts = startingHearts;
+        hasCollectedLife = false;
         SceneManager.LoadScene("Game");
     }
 
     public void GoToMainMenu()
     {
         currentHearts = startingHearts;
+        hasCollectedLife = false;
         SceneManager.LoadScene("MainMenu");
     }
 
@@ -69,6 +76,41 @@ public class GameManager : MonoBehaviour
     public bool HasCollectedLife()
     {
         return hasCollectedLife;
+    }
+
+    public void SetCanShoot(bool value)
+    {
+        canShoot = value;
+    }
+
+    public bool CanShoot()
+    {
+        return canShoot;
+    }
+
+    public void SetCheckpointReached(int value)
+    {
+        lastCheckPoint = value;
+    }
+
+    public Transform GetCheckpoint()
+    {
+        return checkpoints[lastCheckPoint];
+    }
+
+    public int GetLastCheckpoint()
+    {
+        return lastCheckPoint;
+    }
+
+    public void ResetHearts()
+    {
+        currentHearts = maxHearts;
+    }
+
+    public void ResetLastCheckpoint()
+    {
+        lastCheckPoint = 0;
     }
 }
 

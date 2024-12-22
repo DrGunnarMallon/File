@@ -9,6 +9,7 @@ public class GameOver : MonoBehaviour
 
     public void GoToMainMenu()
     {
+        Debug.Log("Go to main menu");
         GameManager.Instance.GoToMainMenu();
     }
 }
