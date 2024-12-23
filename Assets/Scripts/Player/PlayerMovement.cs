@@ -20,13 +20,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float runSpeed = 5f;
     [SerializeField] private GameObject deathParticleSystem;
     [SerializeField] private TextMeshProUGUI gameOverText;
-    [SerializeField] private GameObject laser;
-    [SerializeField] private Transform laserSpawnPoint;
+    // [SerializeField] private GameObject laser;
+    // [SerializeField] private Transform laserSpawnPoint;
 
     private Rigidbody2D rb;
     private Vector2 moveInput;
     private BoxCollider2D playerCollider;
-    private GravityControl gravityControl;
     private Animator animator;
 
     private Vector3 startingScale;
@@ -37,7 +36,6 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         playerCollider = GetComponent<BoxCollider2D>();
-        gravityControl = GetComponent<GravityControl>();
         animator = GetComponent<Animator>();
     }
 
@@ -144,7 +142,7 @@ public class PlayerMovement : MonoBehaviour
 
             AudioManager.Instance.PlayDeathSound();
 
-            if (GameManager.Instance.GetCurrentHearts() > 0)
+            if (GameManager.Instance.CurrentHearts > 0)
             {
                 animator.SetInteger("state", (int)PlayerState.Dying);
                 StartCoroutine(RestartLevelAfterDelay(2f));
@@ -160,27 +158,7 @@ public class PlayerMovement : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
 
-        // playerCollider.enabled = false;
-
-        // rb.linearVelocity = Vector2.zero;
-        // rb.angularVelocity = 0;
-
-        // rb.bodyType = RigidbodyType2D.Kinematic;
-
-        // isAlive = true;
-        // hasDied = false;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-
-        // animator.SetInteger("state", (int)PlayerState.Idle);
-        // animator.Play("Player_Idle");
-
-        // Transform lastCheckpoint = GameManager.Instance.GetCheckpoint();
-        // transform.position = lastCheckpoint.position;
-
-        // yield return new WaitForSeconds(0.1f);
-
-        // rb.bodyType = RigidbodyType2D.Dynamic;
-        // playerCollider.enabled = true;
     }
 
 
@@ -195,8 +173,7 @@ public class PlayerMovement : MonoBehaviour
 
         gameOverText.gameObject.SetActive(false);
 
-        GameManager.Instance.ResetHearts();
-        GameManager.Instance.ResetLastCheckpoint();
+        GameManager.Instance.ResetGameParameters();
 
         SceneManager.LoadScene("GameOver");
     }

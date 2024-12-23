@@ -2,12 +2,7 @@ using UnityEngine;
 
 public class CollidableItem : MonoBehaviour
 {
-    private bool hasCollected;
-
-    private void Start()
-    {
-        hasCollected = GameManager.Instance.HasCollectedLife();
-    }
+    private bool hasCollected = false;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -21,7 +16,6 @@ public class CollidableItem : MonoBehaviour
             else
             {
                 hasCollected = true;
-                GameManager.Instance.CollectLife();
                 GameManager.Instance.IncreaseHearts();
                 FindFirstObjectByType<HeartUI>()?.UpdateHearts();
                 messageUI.DisplayMessage("Welcome to the game, File.\nHere's an extra life for you <3");

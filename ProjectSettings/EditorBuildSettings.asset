@@ -21,7 +21,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Credits.unity
     guid: 87cf76ba4a6a5714e823f2ed63c1cc6c
   - enabled: 1
-    path: Assets/Scenes/CutScene.unity
+    path: Assets/Scenes/Introduction.unity
     guid: 026173c3390e3504b9c24c9ea3205862
   - enabled: 1
     path: Assets/Scenes/GameOver.unity

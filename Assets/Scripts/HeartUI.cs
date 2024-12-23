@@ -15,7 +15,7 @@ public class HeartUI : MonoBehaviour
 
     private void Start()
     {
-        InitializeHearts(GameManager.Instance.GetMaxHearts());
+        InitializeHearts(GameManager.Instance.MaxHearts);
         UpdateHearts();
     }
 
@@ -43,7 +43,7 @@ public class HeartUI : MonoBehaviour
     {
         for (int i = 0; i < heartImages.Count; i++)
         {
-            if (i < GameManager.Instance.GetCurrentHearts())
+            if (i < GameManager.Instance.CurrentHearts)
             {
                 heartImages[i].sprite = fullHeartSprite;
             }
