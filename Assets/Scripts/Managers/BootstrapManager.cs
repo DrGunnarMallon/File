@@ -9,6 +9,7 @@ public class BootstrapManager : MonoBehaviour
     [SerializeField] private GameObject uiManager;
 
     private GameObject bootstrapCamera;
+    private GameObject loadingCanvas;
 
     private void Awake()
     {
@@ -35,24 +36,30 @@ public class BootstrapManager : MonoBehaviour
         }
 
         bootstrapCamera = GameObject.FindGameObjectWithTag("Bootstrap Camera");
+        loadingCanvas = GameObject.FindGameObjectWithTag("Loading Canvas");
     }
 
     void Start()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
-        SceneManager.LoadScene("MainMenu", LoadSceneMode.Additive);
+        // SceneManager.LoadScene("MainMenu", LoadSceneMode.Additive);
+        SceneLoadManager sceneLoadManager = FindFirstObjectByType<SceneLoadManager>();
+        StartCoroutine(sceneLoadManager.TransitionScene("MainMenu", LoadSceneMode.Additive, true));
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        if (!bootstrapCamera) return;
+
         Camera mainSceneCamera = FindFirstObjectByType<Camera>();
 
         if (mainSceneCamera != null && bootstrapCamera != null && mainSceneCamera != bootstrapCamera)
         {
             Destroy(bootstrapCamera);
             bootstrapCamera = null;
-            Debug.Log("Bootstrap Camera destroyed");
         }
+
+        Destroy(loadingCanvas);
     }
 
     private void OnDestroy()

@@ -171,8 +171,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: 100}
-  m_SizeDelta: {x: 700, y: 200}
+  m_AnchoredPosition: {x: 0, y: 75}
+  m_SizeDelta: {x: 700, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4617407822123559023
 CanvasRenderer:
@@ -563,11 +563,13 @@ MonoBehaviour:
   fadeScreen: {fileID: 7587189171018503366}
   fadeDuration: 1
   lifePanel: {fileID: 8139086850926485051}
+  heartsLayoutGroup: {fileID: 1907589260341915678}
   fullHeartPrefab: {fileID: 7848707632066519767, guid: 9cd8571c1ea94eb49b178fd340118039, type: 3}
   emptyHeartPrefab: {fileID: 6306545960535497469, guid: 97ced8700b6116641b6be7ebb593c02d, type: 3}
   messageBox: {fileID: 5048147250626984845}
   messageText: {fileID: 6426481802323084605}
-  moveTime: 0.5
+  moveTime: 0.2
+  displayTime: 2
 --- !u!1 &7587189171018503366
 GameObject:
   m_ObjectHideFlags: 0
@@ -627,7 +629,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

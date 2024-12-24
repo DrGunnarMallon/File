@@ -12,6 +12,7 @@ TagManager:
   - Door
   - Enemy
   - Bootstrap Camera
+  - Loading Canvas
   layers:
   - Default
   - TransparentFX

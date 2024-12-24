@@ -23,6 +23,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject messageBox;
     [SerializeField] private TextMeshProUGUI messageText;
     [SerializeField] private float moveTime = 0.5f;
+    [SerializeField] private float displayTime = 2f;
 
     private void Awake()
     {
@@ -36,12 +37,6 @@ public class UIManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-    }
-
-    private void Start()
-    {
-        UpdateHeartsDisplay(GameManager.Instance.CurrentHearts, GameManager.Instance.MaxHearts);
-        lifePanel.SetActive(false);
     }
 
     #region Singelton Implementation
@@ -60,6 +55,7 @@ public class UIManager : MonoBehaviour
 
     public IEnumerator FadeToBlack()
     {
+        Debug.Log("Fading to black");
         fadeScreen.SetActive(true);
         CanvasGroup canvasGroup = fadeScreen.GetComponent<CanvasGroup>();
         canvasGroup.alpha = 0;
@@ -73,6 +69,7 @@ public class UIManager : MonoBehaviour
 
     public IEnumerator FadeFromBlack()
     {
+        Debug.Log("Fading from black");
         fadeScreen.SetActive(true);
 
         CanvasGroup canvasGroup = fadeScreen.GetComponent<CanvasGroup>();
@@ -91,11 +88,10 @@ public class UIManager : MonoBehaviour
 
     #region Life Counter Methods
 
-    public void UpdateHeartsDisplay(int currentHearts, int maxHearts)
+    public void UpdateHeartsDisplay()
     {
-        Debug.Log($"Current Hearts: {currentHearts}, Max Hearts: {maxHearts}");
-
-        ShowHeartsPanel();
+        int currentHearts = GameManager.Instance.CurrentHearts;
+        int maxHearts = GameManager.Instance.MaxHearts;
 
         foreach (var heart in heartImages)
         {
@@ -116,6 +112,11 @@ public class UIManager : MonoBehaviour
         lifePanel.SetActive(true);
     }
 
+    public void HideHeartsPanel()
+    {
+        lifePanel.SetActive(false);
+    }
+
     #endregion
 
     #region Message Box Methods
@@ -124,8 +125,10 @@ public class UIManager : MonoBehaviour
     private Vector2 visiblePosition = new Vector2(0, -100);
     private RectTransform messageBoxRect;
 
-    public IEnumerator DisplayMessage(string message, float displayTime = 2f)
+    public IEnumerator DisplayMessage(string message)
     {
+        Debug.Log("Displaying message: " + message);
+
         messageText.text = message;
 
         messageBoxRect = messageBox.GetComponent<RectTransform>();
