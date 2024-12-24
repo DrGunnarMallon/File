@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GameOver : MonoBehaviour
+public class GameOverManager : MonoBehaviour
 {
     public void RestartGame()
     {
@@ -9,7 +9,6 @@ public class GameOver : MonoBehaviour
 
     public void GoToMainMenu()
     {
-        Debug.Log("Go to main menu");
         GameManager.Instance.GoToMainMenu();
     }
 }

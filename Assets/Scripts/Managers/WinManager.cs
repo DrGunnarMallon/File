@@ -1,10 +1,9 @@
 using UnityEngine;
 
-public class Win : MonoBehaviour
+public class WinManager : MonoBehaviour
 {
     public void GoToMainMenu()
     {
         GameManager.Instance.GoToMainMenu();
-
     }
 }
