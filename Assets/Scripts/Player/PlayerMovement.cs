@@ -1,187 +1,132 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 using TMPro;
+using System;
 
-public enum PlayerState
-{
-    Idle = 0,
-    Running = 1,
-    Jumping = 2,
-    Falling = 3,
-    Dying = 4
-}
-
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(BoxCollider2D))]
+[RequireComponent(typeof(PlayerAnimationController))]
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("Movement Settings")]
     [SerializeField] private float jumpSpeed = 5f;
     [SerializeField] private float runSpeed = 5f;
-    [SerializeField] private GameObject deathParticleSystem;
-    [SerializeField] private TextMeshProUGUI gameOverText;
-    // [SerializeField] private GameObject laser;
-    // [SerializeField] private Transform laserSpawnPoint;
+
+    [Header("Status Flags")]
+    public bool IsAlive = true;
+    private bool hasDied = false;
 
     private Rigidbody2D rb;
-    private Vector2 moveInput;
     private BoxCollider2D playerCollider;
-    private Animator animator;
+    private PlayerAnimationController animationController;
 
-    private Vector3 startingScale;
-    private bool isAlive = true;
-    private bool hasDied = false;
+    private Vector2 moveInput;
+    private Vector3 originalScale;
+
+    #region Basic Setup
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         playerCollider = GetComponent<BoxCollider2D>();
-        animator = GetComponent<Animator>();
+        animationController = GetComponent<PlayerAnimationController>();
     }
 
     private void Start()
     {
-        startingScale = transform.localScale;
+        originalScale = transform.localScale;
     }
 
     private void Update()
     {
-        if (!isAlive || hasDied)
+        if (!IsAlive || hasDied)
         {
             return;
         }
 
-        Die();
-        UpdateAnimationStates();
-        FlipSprite();
+        bool grounded = IsGrounded();
+        bool horizontalSpeed = Math.Abs(rb.linearVelocityX) > 0.01f;
+        float verticalSpeed = rb.linearVelocityY;
+
+        animationController.UpdateAnimation(IsAlive, grounded, verticalSpeed, horizontalSpeed);
+
+        FlipSpriteBasedOnMovement();
     }
 
     private void FixedUpdate()
     {
-        if (!isAlive && hasDied) return;
+        if (!IsAlive || hasDied) return;
 
         Run();
     }
 
-    void OnMove(InputValue value)
+    #endregion
+
+    #region Input Methods
+
+    public void OnMove(InputValue value)
     {
-        if (!isAlive && hasDied) return;
+        if (!IsAlive || hasDied) return;
 
         moveInput = value.Get<Vector2>();
     }
 
-    void OnJump(InputValue value)
+    public void OnJump(InputValue value)
     {
-        if (!isAlive) return;
+        if (!IsAlive || hasDied) return;
+
+        Debug.Log(IsGrounded());
 
         if (value.isPressed && IsGrounded())
         {
             AudioManager.Instance.PlayJumpSound();
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpSpeed);
+            rb.linearVelocity = new Vector2(rb.linearVelocityX, jumpSpeed);
         }
     }
 
-    void Run()
+    #endregion
+
+    #region Movement Logic
+
+    private void Run()
     {
-        rb.linearVelocity = new Vector2(moveInput.x * runSpeed, rb.linearVelocity.y);
+        rb.linearVelocity = new Vector2(moveInput.x * runSpeed, rb.linearVelocityY);
     }
 
-    void FlipSprite()
+    private void FlipSpriteBasedOnMovement()
     {
-        if (PlayerHasHorizontalSpeed())
+        if (Math.Abs(rb.linearVelocityX) > 0.01f)
         {
-            transform.localScale = new Vector2(Mathf.Sign(rb.linearVelocity.x) * startingScale.x, startingScale.y);
+            transform.localScale = new Vector3(
+                Mathf.Sign(rb.linearVelocityX) * Math.Abs(originalScale.x),
+                originalScale.y,
+                originalScale.z
+            );
         }
-
-    }
-
-    private bool PlayerHasHorizontalSpeed()
-    {
-        return Mathf.Abs(rb.linearVelocity.x) > 0.01f;
     }
 
     private bool IsGrounded()
     {
-        return playerCollider.IsTouchingLayers(LayerMask.GetMask("Platform", "Item"));
+        return playerCollider.IsTouchingLayers(LayerMask.GetMask("Platform"));
     }
 
+    #endregion
 
+    #region Public Methods
 
-
-    private void UpdateAnimationStates()
+    public void DisableMovement()
     {
-        if (!isAlive)
-        {
-            animator.SetInteger("state", (int)PlayerState.Dying);
-            return;
-        }
-
-        PlayerState state = PlayerState.Idle;
-
-        if (IsGrounded())
-        {
-            state = PlayerHasHorizontalSpeed() ? PlayerState.Running : PlayerState.Idle;
-        }
-        else
-        {
-            state = rb.linearVelocity.y > 0 ? PlayerState.Jumping : PlayerState.Falling;
-        }
-
-        animator.SetInteger("state", (int)state);
+        hasDied = true;
+        rb.linearVelocity = Vector2.zero;
+        rb.angularVelocity = 0f;
+        moveInput = Vector2.zero;
     }
 
-
-    private void Die()
+    public void EnableMovement()
     {
-        if (playerCollider.IsTouchingLayers(LayerMask.GetMask("Enemy", "Hazard")) && isAlive)
-        {
-            isAlive = false;
-
-            GameManager.Instance.ReduceHearts();
-            FindFirstObjectByType<HeartUI>()?.UpdateHearts();
-
-            AudioManager.Instance.PlayDeathSound();
-
-            if (GameManager.Instance.CurrentHearts > 0)
-            {
-                animator.SetInteger("state", (int)PlayerState.Dying);
-                StartCoroutine(RestartLevelAfterDelay(2f));
-            }
-            else
-            {
-                StartCoroutine(GameOver());
-            }
-        }
+        hasDied = false;
     }
 
-    private IEnumerator RestartLevelAfterDelay(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
-
-
-
-    private IEnumerator GameOver()
-    {
-        yield return new WaitForSeconds(1f);
-
-        gameOverText.gameObject.SetActive(true);
-
-        yield return new WaitForSeconds(2f);
-
-        gameOverText.gameObject.SetActive(false);
-
-        GameManager.Instance.ResetGameParameters();
-
-        SceneManager.LoadScene("GameOver");
-    }
-
-
-    public void SpawnDeathParticles()
-    {
-        Instantiate(deathParticleSystem, transform.position, Quaternion.identity);
-    }
-
+    #endregion
 }

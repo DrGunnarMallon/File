@@ -41,7 +41,7 @@ public class DoorSwitch : MonoBehaviour
                 switchOn = false;
                 if (switchOff) { disableToActivate(); } else { enableToActivate(); }
                 switchLight.enabled = false;
-                FindFirstObjectByType<MessageUI>().DisplayMessage(openMessage);
+                // FindFirstObjectByType<MessageUI>().DisplayMessage(openMessage);
             }
             else
             {
@@ -49,7 +49,7 @@ public class DoorSwitch : MonoBehaviour
                 if (switchOff) { enableToActivate(); } else { disableToActivate(); }
                 switchLight.enabled = true;
                 switchOn = true;
-                FindFirstObjectByType<MessageUI>().DisplayMessage(closeMessage);
+                // FindFirstObjectByType<MessageUI>().DisplayMessage(closeMessage);
             }
         }
     }
@@ -74,7 +74,7 @@ public class DoorSwitch : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            FindFirstObjectByType<MessageUI>()?.HideMessage();
+            // FindFirstObjectByType<MessageUI>()?.HideMessage();
         }
     }
 

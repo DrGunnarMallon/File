@@ -1,14 +1,12 @@
 using UnityEngine;
 
-public class TriggerParticles : MonoBehaviour
+public class Checkpoint : MonoBehaviour
 {
-    [SerializeField] private ParticleSystem myParticleSystem;
-
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            myParticleSystem.Play();
+            GameManager.Instance.SetCheckpoint(transform.position);
         }
     }
 }

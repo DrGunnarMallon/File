@@ -10,7 +10,7 @@ public class UIManager : MonoBehaviour
 
     [Header("Fade Screen")]
     [SerializeField] private GameObject fadeScreen;
-    [SerializeField] private float fadeDuration = 1.0f;
+    [SerializeField] private float fadeDuration = 1f;
 
     [Header("Life Counter")]
     [SerializeField] private GameObject lifePanel;
@@ -55,21 +55,22 @@ public class UIManager : MonoBehaviour
 
     public IEnumerator FadeToBlack()
     {
-        Debug.Log("Fading to black");
         fadeScreen.SetActive(true);
         CanvasGroup canvasGroup = fadeScreen.GetComponent<CanvasGroup>();
         canvasGroup.alpha = 0;
 
-        while (canvasGroup.alpha < 1f)
+        float elapsedTime = 0f;
+
+        while (elapsedTime < fadeDuration)
         {
-            canvasGroup.alpha += Time.deltaTime / fadeDuration;
+            elapsedTime += Time.deltaTime;
+            canvasGroup.alpha = Mathf.Clamp01(elapsedTime / fadeDuration);
             yield return null;
         }
     }
 
     public IEnumerator FadeFromBlack()
     {
-        Debug.Log("Fading from black");
         fadeScreen.SetActive(true);
 
         CanvasGroup canvasGroup = fadeScreen.GetComponent<CanvasGroup>();
@@ -102,7 +103,7 @@ public class UIManager : MonoBehaviour
         for (int i = 0; i < maxHearts; i++)
         {
             GameObject heartPrefabToUse = (i < currentHearts) ? fullHeartPrefab : emptyHeartPrefab;
-            GameObject heart = Instantiate(heartPrefabToUse, heartsLayoutGroup);
+            GameObject heart = Instantiate(heartPrefabToUse, heartsLayoutGroup, false);
             heartImages.Add(heart);
         }
     }

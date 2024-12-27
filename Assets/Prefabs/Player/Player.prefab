@@ -15,10 +15,9 @@ GameObject:
   - component: {fileID: 1341336671763043752}
   - component: {fileID: 2718740635543964902}
   - component: {fileID: 7202562697877648415}
-  - component: {fileID: 1544835329766033016}
   - component: {fileID: 7870910911954476913}
-  - component: {fileID: 5976646687251759647}
-  - component: {fileID: 2312803264430266485}
+  - component: {fileID: 5178152632346641795}
+  - component: {fileID: 1004455388761479547}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -151,7 +150,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2096488628354464725}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 6200000, guid: bb89f8c35617cf047a575320ca168aaa, type: 2}
@@ -269,19 +268,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &1544835329766033016
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2096488628354464725}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bab4e21630a56c843b6247c51a9fc348, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotationTime: 0.3
 --- !u!114 &7870910911954476913
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -294,37 +280,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3bb4d51ef5fade4291475b2b3f6aac1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpSpeed: 5
-  runSpeed: 5
-  deathParticleSystem: {fileID: 0}
-  gameOverText: {fileID: 0}
---- !u!114 &5976646687251759647
+  jumpSpeed: 14
+  runSpeed: 8
+  IsAlive: 1
+--- !u!114 &5178152632346641795
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2096488628354464725}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4afd0958e71bbf741977e79fda1dae07, type: 3}
+  m_Script: {fileID: 11500000, guid: 86702258fb58c9349939d03502e30e5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogPanel: {fileID: 0}
-  dialogText: {fileID: 0}
-  npcTag: NPC
---- !u!114 &2312803264430266485
+--- !u!114 &1004455388761479547
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2096488628354464725}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f04471f2341fec247ab45f404025e512, type: 3}
+  m_Script: {fileID: 11500000, guid: f6670d510993f3649ba95aa87cf2fae0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathParticleSystem: {fileID: 1418402349535099836, guid: aadb3385cdf37334e99b23402d3099ad, type: 3}
+  deathAnimationWait: 0.5
+  skyRespawnOffset: 5
 --- !u!1 &6166451709164930307
 GameObject:
   m_ObjectHideFlags: 0

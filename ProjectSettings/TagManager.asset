@@ -13,6 +13,7 @@ TagManager:
   - Enemy
   - Bootstrap Camera
   - Loading Canvas
+  - Terminal
   layers:
   - Default
   - TransparentFX

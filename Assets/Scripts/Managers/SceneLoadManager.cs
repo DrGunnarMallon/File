@@ -8,15 +8,4 @@ public class SceneLoadManager : MonoBehaviour
     {
         SceneManager.LoadSceneAsync(sceneName);
     }
-
-    public IEnumerator TransitionScene(string sceneName, LoadSceneMode sceneMode = LoadSceneMode.Single, bool fadeFirst = true)
-    {
-        if (fadeFirst)
-        {
-            yield return StartCoroutine(UIManager.Instance.FadeToBlack());
-            yield return new WaitForSeconds(1f);
-        }
-        SceneManager.LoadScene(sceneName, sceneMode);
-        yield return StartCoroutine(UIManager.Instance.FadeFromBlack());
-    }
 }

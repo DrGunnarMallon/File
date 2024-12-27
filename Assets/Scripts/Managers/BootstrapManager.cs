@@ -42,9 +42,7 @@ public class BootstrapManager : MonoBehaviour
     void Start()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
-        // SceneManager.LoadScene("MainMenu", LoadSceneMode.Additive);
-        SceneLoadManager sceneLoadManager = FindFirstObjectByType<SceneLoadManager>();
-        StartCoroutine(sceneLoadManager.TransitionScene("MainMenu", LoadSceneMode.Additive, true));
+        SceneManager.LoadScene("MainMenu", LoadSceneMode.Additive);
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
