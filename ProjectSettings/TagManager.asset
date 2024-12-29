@@ -14,6 +14,7 @@ TagManager:
   - Bootstrap Camera
   - Loading Canvas
   - Terminal
+  - Checkpoint
   layers:
   - Default
   - TransparentFX
@@ -28,7 +29,7 @@ TagManager:
   - Enemy
   - Hazard
   - Laser
-  - 
+  - Checkpoint
   - 
   - 
   - 

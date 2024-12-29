@@ -12,6 +12,7 @@ public class DoorSwitch : MonoBehaviour
 
     [SerializeField] private GameObject[] toActivate;
     [SerializeField] private bool switchOff = false;
+    [SerializeField] private ParticleSystem particles = null;
 
     private void Awake()
     {
@@ -41,7 +42,11 @@ public class DoorSwitch : MonoBehaviour
                 switchOn = false;
                 if (switchOff) { disableToActivate(); } else { enableToActivate(); }
                 switchLight.enabled = false;
-                // FindFirstObjectByType<MessageUI>().DisplayMessage(openMessage);
+                StartCoroutine(UIManager.Instance.DisplayMessage(openMessage));
+                if (particles != null)
+                {
+                    particles.Play();
+                }
             }
             else
             {
@@ -49,7 +54,7 @@ public class DoorSwitch : MonoBehaviour
                 if (switchOff) { enableToActivate(); } else { disableToActivate(); }
                 switchLight.enabled = true;
                 switchOn = true;
-                // FindFirstObjectByType<MessageUI>().DisplayMessage(closeMessage);
+                StartCoroutine(UIManager.Instance.DisplayMessage(closeMessage));
             }
         }
     }
@@ -67,14 +72,6 @@ public class DoorSwitch : MonoBehaviour
         foreach (GameObject obj in toActivate)
         {
             obj.SetActive(false);
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            // FindFirstObjectByType<MessageUI>()?.HideMessage();
         }
     }
 

@@ -45,4 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHearts: 5
-  startingHearts: 4
+  startingHearts: 5
+  startingLevel: Level1
+  lastCheckPoint: {x: 0, y: 0, z: 0}

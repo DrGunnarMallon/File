@@ -5,8 +5,6 @@ using UnityEngine.SceneManagement;
 public class MainFrame : MonoBehaviour
 {
     [SerializeField] ParticleSystem particleEffect;
-    [SerializeField] private CanvasGroup fadeCanvasGroup;
-    [SerializeField] private float fadeDuration = 1.5f;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -20,21 +18,8 @@ public class MainFrame : MonoBehaviour
     {
         // Play particle effect
         particleEffect.Play();
-        yield return new WaitForSeconds(1.5f);
-        yield return StartCoroutine(FadeOut());
+        yield return new WaitForSeconds(0.5f);
+        yield return StartCoroutine(UIManager.Instance.FadeToBlack());
         SceneManager.LoadScene("WinScene");
-    }
-
-    private IEnumerator FadeOut()
-    {
-        float timer = 0;
-        while (timer < fadeDuration)
-        {
-            timer += Time.deltaTime;
-            fadeCanvasGroup.alpha = Mathf.Lerp(0, 1, timer / fadeDuration);
-            yield return null;
-        }
-
-        fadeCanvasGroup.alpha = 1f;
     }
 }

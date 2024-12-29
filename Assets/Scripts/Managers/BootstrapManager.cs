@@ -7,6 +7,7 @@ public class BootstrapManager : MonoBehaviour
     [SerializeField] private GameObject audioManagerPrefab;
     [SerializeField] private GameObject sceneLoadManager;
     [SerializeField] private GameObject uiManager;
+    [SerializeField] private string startingLevel;
 
     private GameObject bootstrapCamera;
     private GameObject loadingCanvas;
@@ -42,7 +43,8 @@ public class BootstrapManager : MonoBehaviour
     void Start()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
-        SceneManager.LoadScene("MainMenu", LoadSceneMode.Additive);
+        // SceneManager.LoadScene("MainMenu", LoadSceneMode.Additive);
+        SceneManager.LoadScene(startingLevel, LoadSceneMode.Additive);
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)

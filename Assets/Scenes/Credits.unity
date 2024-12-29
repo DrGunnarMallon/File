@@ -498,22 +498,22 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'AUDIO.PIXELART.ANIMATIONS.UNITY: DeafC4t (Gunnar)
+  m_text: 'PIXELART // ANIMATIONS // UNITY: DeafC4t (Gunnar)
 
 
-    STORYLINE: Giulia
-    // DeafC4t
+    Music // Story:
+    DeafC4t
 
 
     TESTING: Giulia
 
 
-    BACKGROUNDS: FLUX 1D (AI)
+    INTRODUCTION IMAGES: FLUX 1D (AI)
 
 
 
     Written
-    for Secret Santa Jam'
+    for Secret Santa Jam 2024'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
   m_sharedMaterial: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
@@ -540,12 +540,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
+  m_fontSize: 38
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 24
-  m_fontSizeMax: 36
+  m_fontSizeMax: 38
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512

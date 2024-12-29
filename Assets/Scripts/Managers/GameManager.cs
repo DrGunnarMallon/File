@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     [Header("Game Settings")]
     [SerializeField] private int maxHearts = 5;
     [SerializeField] private int startingHearts = 5;
+    [SerializeField] private string startingLevel;
 
     public int MaxHearts => maxHearts;
     public int CurrentHearts { get; private set; }
@@ -39,6 +40,7 @@ public class GameManager : MonoBehaviour
 
     public void SetCheckpoint(Vector3 position)
     {
+        Debug.Log("Checkpoint set at: " + position);
         lastCheckPoint = position;
     }
 
@@ -60,13 +62,15 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         ResetGameParameters();
-        SceneManager.LoadScene("Game");
+        SceneManager.LoadScene(startingLevel);
+        StartCoroutine(UIManager.Instance.FadeFromBlack());
     }
 
     public void GoToMainMenu()
     {
         ResetGameParameters();
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("Bootstrap");
+        StartCoroutine(UIManager.Instance.FadeFromBlack());
     }
 
     private IEnumerator HandleGameOver()
@@ -84,10 +88,22 @@ public class GameManager : MonoBehaviour
         if (CurrentHearts > 0)
         {
             CurrentHearts--;
+            UIManager.Instance.UpdateHeartsDisplay();
         }
     }
 
-    public void IncreaseHearts() => CurrentHearts = CurrentHearts < maxHearts ? CurrentHearts++ : CurrentHearts = maxHearts;
+    public void IncreaseHearts()
+    {
+        if (CurrentHearts < maxHearts)
+        {
+            CurrentHearts++;
+            UIManager.Instance.UpdateHeartsDisplay();
+        }
+        else
+        {
+            CurrentHearts = maxHearts;
+        }
+    }
 
 
     public void StartGame()

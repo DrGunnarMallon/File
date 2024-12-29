@@ -128,8 +128,6 @@ public class UIManager : MonoBehaviour
 
     public IEnumerator DisplayMessage(string message)
     {
-        Debug.Log("Displaying message: " + message);
-
         messageText.text = message;
 
         messageBoxRect = messageBox.GetComponent<RectTransform>();

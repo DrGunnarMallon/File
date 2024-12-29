@@ -76,8 +76,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!IsAlive || hasDied) return;
 
-        Debug.Log(IsGrounded());
-
         if (value.isPressed && IsGrounded())
         {
             AudioManager.Instance.PlayJumpSound();
